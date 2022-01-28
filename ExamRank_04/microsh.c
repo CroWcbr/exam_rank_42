@@ -5,7 +5,7 @@
 
 typedef struct s_cmd
 {
-	char	**cmd;
+	char	*cmd[20]; //**cmd;
 	int		prev; // 1 - pipe || 0 - other
 	int		next; // 1 - pipe || 0 - other
 	int		prev_pipe;
@@ -22,7 +22,7 @@ int	ft_strlen(char *str)
 void    fatal(void)
 {
     write(2, "error: fatal\n", ft_strlen("error: fatal\n"));
-    exit (24);
+    exit (1);
 }
 
 void my_execve(t_cmd *tmp, char **envr)
@@ -96,13 +96,13 @@ int main(int argc, char **argv, char **envr)
 				tmp.prev = 1;
 			if (argv[i] && !strcmp(argv[i], "|"))
 				tmp.next = 1;
-			tmp.cmd = (char**)malloc(sizeof(char *) * (i - start + 1));
+//			tmp.cmd = (char**)malloc(sizeof(char *) * (i - start + 1));
 			int j = -1;
 			while (++j < i - start)
 				tmp.cmd[j] = argv[start + j];
 			tmp.cmd[j] = NULL;
 			my_execve(&tmp, envr);
-			free(tmp.cmd);
+//			free(tmp.cmd);
 		}
 		i++;
 	}
